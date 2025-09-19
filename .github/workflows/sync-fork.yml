@@ -1,0 +1,14 @@
+name: Sync Fork
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  sync_fork:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh repo sync ${OWNER}/${REPO} --source microsoft/mdatp-xplat 
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+
